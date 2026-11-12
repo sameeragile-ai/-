@@ -4,28 +4,31 @@
   --font-display: 'Space Grotesk', system-ui, -apple-system, sans-serif;
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
 
-  --color-navy-base: #0B1220;
-  --color-navy-surface: #111A2E;
-  --color-navy-card: #16213A;
-  --color-navy-hover: #1D2A4A;
-  --color-border-subtle: rgba(255, 255, 255, 0.08);
-  --color-border-medium: rgba(255, 255, 255, 0.16);
-  --color-text-main: #F5F7FA;
-  --color-text-secondary: #9AA4B8;
-  --color-amber-gold: #FFB547;
-  --color-amber-primary: #FF7A1A;
-  --color-burnt-orange: #E5481F;
-  --color-highway-teal: #2DD4BF;
-  --color-electric-blue: #3B82F6;
+  --color-slate-base: #F8FAFC;
+  --color-slate-surface: #FFFFFF;
+  --color-slate-subtle: #F1F5F9;
+  --color-slate-card: #FFFFFF;
+  --color-border-subtle: #E2E8F0;
+  --color-border-medium: #CBD5E1;
+  --color-text-main: #0F172A;
+  --color-text-secondary: #64748B;
+  --color-text-muted: #94A3B8;
+  
+  --color-safety-orange: #EA580C;
+  --color-safety-amber: #F97316;
+  --color-safety-light: #FFF7ED;
+  --color-highway-navy: #0F172A;
+  --color-highway-slate: #1E293B;
+  --color-verified-green: #16A34A;
 }
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 body {
-  background-color: #0B1220;
-  color: #F5F7FA;
+  background-color: #F8FAFC;
+  color: #0F172A;
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
@@ -36,92 +39,29 @@ h1, h2, h3, h4, h5, h6, .font-display {
   letter-spacing: -0.02em;
 }
 
-/* Custom Gradients */
-.gradient-amber {
-  background: linear-gradient(135deg, #FFB547 0%, #FF7A1A 55%, #E5481F 100%);
-}
-
-.gradient-teal {
-  background: linear-gradient(135deg, #2DD4BF 0%, #3B82F6 100%);
-}
-
-.gradient-text-amber {
-  background: linear-gradient(135deg, #FFB547 0%, #FF7A1A 55%, #E5481F 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.gradient-text-teal {
-  background: linear-gradient(135deg, #2DD4BF 0%, #3B82F6 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* Road lane dashed motif */
+/* Subtle road divider (natural, clean, quiet) */
 .road-divider {
   height: 2px;
   width: 100%;
   background-image: repeating-linear-gradient(
     90deg,
-    rgba(255, 181, 71, 0.5) 0px,
-    rgba(255, 181, 71, 0.5) 18px,
-    transparent 18px,
-    transparent 36px
+    #CBD5E1 0px,
+    #CBD5E1 14px,
+    transparent 14px,
+    transparent 28px
   );
 }
 
-.road-divider-subtle {
+.road-divider-amber {
   height: 2px;
   width: 100%;
   background-image: repeating-linear-gradient(
     90deg,
-    rgba(255, 255, 255, 0.12) 0px,
-    rgba(255, 255, 255, 0.12) 16px,
+    #F97316 0px,
+    #F97316 16px,
     transparent 16px,
     transparent 32px
   );
-}
-
-/* Shine sweep animation on primary buttons */
-.shine-hover {
-  position: relative;
-  overflow: hidden;
-}
-
-.shine-hover::after {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -150%;
-  width: 100%;
-  height: 200%;
-  background: linear-gradient(
-    60deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.25) 50%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  transform: rotate(25deg);
-  transition: all 0.75s ease;
-}
-
-.shine-hover:hover::after {
-  left: 150%;
-}
-
-/* Glassmorphism utility */
-.glass-panel {
-  background: rgba(17, 26, 46, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.glass-dropdown {
-  background: rgba(22, 33, 58, 0.95);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 /* Custom scrollbars */
@@ -131,19 +71,19 @@ h1, h2, h3, h4, h5, h6, .font-display {
 }
 
 ::-webkit-scrollbar-track {
-  background: #0B1220;
+  background: #F1F5F9;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1E2D4E;
+  background: #CBD5E1;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #FF7A1A;
+  background: #94A3B8;
 }
 
-/* Skeleton shimmer */
+/* Clean shimmer for loading */
 @keyframes shimmer {
   0% {
     background-position: -200% 0;
@@ -156,9 +96,9 @@ h1, h2, h3, h4, h5, h6, .font-display {
 .shimmer-card {
   background: linear-gradient(
     90deg,
-    #111A2E 25%,
-    #16213A 37%,
-    #111A2E 63%
+    #F1F5F9 25%,
+    #E2E8F0 37%,
+    #F1F5F9 63%
   );
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;

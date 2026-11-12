@@ -16,29 +16,29 @@ export const ToastContainer: React.FC = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, x: 50, scale: 0.95 }}
             transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            className="pointer-events-auto flex items-start justify-between gap-3 p-4 rounded-xl bg-[#16213A] border border-white/15 shadow-xl shadow-black/50 text-white backdrop-blur-md"
+            className="pointer-events-auto flex items-start justify-between gap-3 p-3.5 rounded-xl bg-white border border-slate-200 shadow-lg text-slate-900"
           >
-            <div className="flex items-start gap-3 min-w-0">
+            <div className="flex items-start gap-2.5 min-w-0">
               {toast.type === 'success' && (
-                <CheckCircle2 className="w-5 h-5 text-[#22C55E] shrink-0 mt-0.5" />
+                <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
               )}
               {toast.type === 'info' && (
-                <Info className="w-5 h-5 text-[#3B82F6] shrink-0 mt-0.5" />
+                <Info className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
               )}
               {toast.type === 'warning' && (
-                <AlertCircle className="w-5 h-5 text-[#FF7A1A] shrink-0 mt-0.5" />
+                <AlertCircle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
               )}
               <div className="min-w-0">
-                <p className="text-xs font-bold text-white truncate">{toast.title}</p>
+                <p className="text-xs font-bold text-slate-900 truncate">{toast.title}</p>
                 {toast.subtitle && (
-                  <p className="text-[11px] text-slate-300 mt-0.5">{toast.subtitle}</p>
+                  <p className="text-[11px] text-slate-500 mt-0.5">{toast.subtitle}</p>
                 )}
               </div>
             </div>
 
             <button
               onClick={() => removeToast(toast.id)}
-              className="p-1 text-slate-400 hover:text-white rounded transition-colors"
+              className="p-1 text-slate-400 hover:text-slate-700 rounded transition-colors"
               aria-label="Dismiss toast"
             >
               <X className="w-4 h-4" />

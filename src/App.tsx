@@ -59,7 +59,7 @@ export default function App() {
         <ScrollToTop />
         <PageLoader />
 
-        <div className="flex flex-col min-h-screen bg-[#0B1220] text-[#F5F7FA]">
+        <div className="flex flex-col min-h-screen bg-[#F8FAFC] text-[#0F172A]">
           <Navbar />
 
           <main className="flex-1">

@@ -26,7 +26,7 @@ export const AuthModal: React.FC = () => {
       );
       setIsAuthModalOpen(false);
       setIsDone(false);
-    }, 700);
+    }, 600);
   };
 
   const handleDemoFill = () => {
@@ -45,106 +45,109 @@ export const AuthModal: React.FC = () => {
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div
+          className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs"
+          onClick={() => setIsAuthModalOpen(false)}
+        />
+
         <motion.div
-          initial={{ opacity: 0, scale: 0.95, y: 15 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.95, y: 15 }}
-          className="relative w-full max-w-md rounded-2xl bg-[#111A2E] border border-white/15 p-6 sm:p-8 shadow-2xl"
+          initial={{ opacity: 0, scale: 0.96 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.96 }}
+          className="relative w-full max-w-md rounded-2xl bg-white border border-slate-200 p-6 sm:p-7 shadow-2xl z-10"
         >
           <button
             onClick={() => setIsAuthModalOpen(false)}
-            className="absolute top-4 right-4 p-2 text-slate-400 hover:text-white rounded-lg hover:bg-white/5"
+            className="absolute top-4 right-4 p-1.5 text-slate-400 hover:text-slate-800 rounded-lg hover:bg-slate-100"
             aria-label="Close"
           >
             <X className="w-5 h-5" />
           </button>
 
-          {/* Role Toggle Header */}
-          <div className="text-center mb-6">
-            <h3 className="font-display font-bold text-2xl text-white mb-1">
-              {mode === 'signin' ? 'Sign In to HaulGig' : 'Join the Freight Network'}
+          <div className="text-center mb-5">
+            <h3 className="font-display font-bold text-xl text-slate-900">
+              {mode === 'signin' ? 'Sign In to HaulGig' : 'Create an Account'}
             </h3>
-            <p className="text-xs text-slate-400">
-              Direct connection between CDL drivers and verified carriers
+            <p className="text-xs text-slate-500 mt-1">
+              Direct connection for CDL drivers and verified motor carriers
             </p>
           </div>
 
-          {/* Segmented Driver vs Company Switch */}
-          <div className="p-1 bg-[#0B1220] rounded-xl flex items-center gap-1 mb-6 border border-white/10">
+          {/* Toggle */}
+          <div className="p-1 bg-slate-100 rounded-lg flex items-center gap-1 mb-5">
             <button
               type="button"
               onClick={() => setAuthRole('driver')}
-              className={`flex-1 py-2 px-3 rounded-lg text-xs font-semibold flex items-center justify-center gap-2 transition-all ${
+              className={`flex-1 py-1.5 px-3 rounded-md text-xs font-semibold flex items-center justify-center gap-1.5 transition-all ${
                 authRole === 'driver'
-                  ? 'bg-[#16213A] text-white shadow-sm border border-white/10'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'bg-white text-slate-900 shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              <User className="w-3.5 h-3.5 text-[#FFB547]" />
-              <span>I am a Driver (CDL)</span>
+              <User className="w-3.5 h-3.5 text-[#EA580C]" />
+              <span>I am a Driver</span>
             </button>
             <button
               type="button"
               onClick={() => setAuthRole('company')}
-              className={`flex-1 py-2 px-3 rounded-lg text-xs font-semibold flex items-center justify-center gap-2 transition-all ${
+              className={`flex-1 py-1.5 px-3 rounded-md text-xs font-semibold flex items-center justify-center gap-1.5 transition-all ${
                 authRole === 'company'
-                  ? 'bg-[#16213A] text-white shadow-sm border border-white/10'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'bg-white text-slate-900 shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              <Building2 className="w-3.5 h-3.5 text-[#2DD4BF]" />
-              <span>I am a Carrier / Fleet</span>
+              <Building2 className="w-3.5 h-3.5 text-slate-700" />
+              <span>I am a Carrier</span>
             </button>
           </div>
 
-          {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-3.5">
             {mode === 'signup' && (
               <div>
-                <label className="text-xs font-medium text-slate-300 block mb-1">
-                  {authRole === 'driver' ? 'Full Legal Name' : 'Company / Fleet Legal Name'}
+                <label className="text-xs font-bold text-slate-700 block mb-1">
+                  {authRole === 'driver' ? 'Full Legal Name' : 'Company Name'}
                 </label>
                 <input
                   type="text"
                   required
-                  placeholder={authRole === 'driver' ? 'e.g. John Miller' : 'e.g. Titan Freight Systems LLC'}
+                  placeholder={authRole === 'driver' ? 'John Miller' : 'Redline Freightways LLC'}
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#16213A] border border-white/10 text-white text-xs placeholder-slate-500 focus:outline-none focus:border-[#FF7A1A]"
+                  className="w-full px-3 py-2 rounded-lg bg-white border border-slate-300 text-slate-900 text-xs focus:outline-none focus:border-[#EA580C]"
                 />
               </div>
             )}
 
             <div>
-              <label className="text-xs font-medium text-slate-300 block mb-1">
-                Work Email Address
+              <label className="text-xs font-bold text-slate-700 block mb-1">
+                Email Address
               </label>
               <input
                 type="email"
                 required
-                placeholder="name@truckingdomain.com"
+                placeholder="name@company.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-3.5 py-2.5 rounded-xl bg-[#16213A] border border-white/10 text-white text-xs placeholder-slate-500 focus:outline-none focus:border-[#FF7A1A]"
+                className="w-full px-3 py-2 rounded-lg bg-white border border-slate-300 text-slate-900 text-xs focus:outline-none focus:border-[#EA580C]"
               />
             </div>
 
             <div>
-              <label className="text-xs font-medium text-slate-300 block mb-1">
+              <label className="text-xs font-bold text-slate-700 block mb-1">
                 {authRole === 'driver' ? 'CDL Number & State' : 'USDOT Number / MC Number'}
               </label>
               <input
                 type="text"
-                placeholder={authRole === 'driver' ? 'e.g. TX-CDL-8941029' : 'e.g. USDOT #3189402'}
+                placeholder={authRole === 'driver' ? 'TX CDL-A #9841209' : 'USDOT #3189402'}
                 value={cdlOrDot}
                 onChange={(e) => setCdlOrDot(e.target.value)}
-                className="w-full px-3.5 py-2.5 rounded-xl bg-[#16213A] border border-white/10 text-white text-xs placeholder-slate-500 focus:outline-none focus:border-[#FF7A1A]"
+                className="w-full px-3 py-2 rounded-lg bg-white border border-slate-300 text-slate-900 text-xs focus:outline-none focus:border-[#EA580C]"
               />
             </div>
 
             <div>
-              <label className="text-xs font-medium text-slate-300 block mb-1">
+              <label className="text-xs font-bold text-slate-700 block mb-1">
                 Password
               </label>
               <input
@@ -153,50 +156,44 @@ export const AuthModal: React.FC = () => {
                 placeholder="••••••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-3.5 py-2.5 rounded-xl bg-[#16213A] border border-white/10 text-white text-xs placeholder-slate-500 focus:outline-none focus:border-[#FF7A1A]"
+                className="w-full px-3 py-2 rounded-lg bg-white border border-slate-300 text-slate-900 text-xs focus:outline-none focus:border-[#EA580C]"
               />
             </div>
 
             <button
               type="submit"
               disabled={isDone}
-              className="shine-hover w-full py-3 px-4 rounded-xl gradient-amber text-white font-bold text-xs shadow-md shadow-[#FF7A1A]/20 transition-all hover:brightness-110 active:scale-95 disabled:opacity-50 mt-2"
+              className="w-full py-2.5 px-4 rounded-lg bg-[#EA580C] hover:bg-[#C2410C] text-white font-bold text-xs shadow-xs transition-colors cursor-pointer mt-1"
             >
               {isDone ? (
                 <span className="flex items-center justify-center gap-1.5">
                   <CheckCircle2 className="w-4 h-4" />
-                  <span>Verified & Authenticated</span>
+                  <span>Verified & Signed In</span>
                 </span>
               ) : mode === 'signin' ? (
                 `Sign In as ${authRole === 'driver' ? 'Driver' : 'Carrier'}`
               ) : (
-                `Create ${authRole === 'driver' ? 'Driver Profile' : 'Carrier Account'}`
+                `Register ${authRole === 'driver' ? 'Driver Profile' : 'Carrier Fleet'}`
               )}
             </button>
           </form>
 
-          {/* Quick Demo Fill Pill */}
-          <div className="mt-4 pt-4 border-t border-white/10 flex items-center justify-between text-xs">
+          <div className="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
             <button
               type="button"
               onClick={handleDemoFill}
-              className="text-[#FFB547] hover:underline font-medium text-[11px] flex items-center gap-1"
+              className="text-[#EA580C] hover:underline font-semibold text-[11px]"
             >
-              <span>Quick Fill Demo {authRole === 'driver' ? 'Driver' : 'Carrier'}</span>
+              Quick Demo Fill ({authRole === 'driver' ? 'Driver' : 'Carrier'})
             </button>
 
             <button
               type="button"
               onClick={() => setMode(mode === 'signin' ? 'signup' : 'signin')}
-              className="text-slate-400 hover:text-white text-[11px]"
+              className="text-slate-500 hover:text-slate-800 text-[11px]"
             >
-              {mode === 'signin' ? "Don't have an account? Sign up" : 'Already registered? Sign in'}
+              {mode === 'signin' ? 'Need an account? Sign up' : 'Already registered? Sign in'}
             </button>
-          </div>
-
-          <div className="mt-4 p-2.5 rounded-lg bg-[#0B1220] border border-white/5 flex items-center gap-2 text-[10px] text-slate-400">
-            <ShieldCheck className="w-3.5 h-3.5 text-[#2DD4BF] shrink-0" />
-            <span>FMCSA SafeStat verification automatically checked against federal records.</span>
           </div>
         </motion.div>
       </div>

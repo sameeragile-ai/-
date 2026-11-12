@@ -25,10 +25,10 @@ export const BackToTop: React.FC = () => {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.8, y: 10 }}
           onClick={scrollToTop}
-          className="fixed bottom-6 left-6 z-40 p-3 rounded-full bg-[#16213A]/90 hover:bg-[#1D2A4A] border border-white/15 text-white shadow-xl shadow-black/50 backdrop-blur-md transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF7A1A]"
+          className="fixed bottom-6 left-6 z-40 p-2.5 rounded-full bg-white hover:bg-slate-50 border border-slate-300 text-slate-800 shadow-md transition-colors focus:outline-none cursor-pointer"
           aria-label="Back to top of page"
         >
-          <ArrowUp className="w-5 h-5 text-[#FFB547]" />
+          <ArrowUp className="w-5 h-5 text-[#EA580C]" />
         </motion.button>
       )}
     </AnimatePresence>

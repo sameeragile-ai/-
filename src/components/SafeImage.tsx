@@ -16,12 +16,12 @@ export const SafeImage: React.FC<SafeImageProps> = ({
   if (hasError || !src) {
     return (
       <div
-        className={`flex flex-col items-center justify-center bg-gradient-to-br from-[#111A2E] via-[#16213A] to-[#0B1220] border border-white/10 text-slate-400 p-4 text-center select-none ${className}`}
+        className={`flex flex-col items-center justify-center bg-slate-100 border border-slate-200 text-slate-500 p-4 text-center select-none ${className}`}
         role="img"
         aria-label={alt || fallbackText}
       >
         <svg
-          className="w-10 h-10 text-[#FF7A1A]/70 mb-2"
+          className="w-10 h-10 text-slate-400 mb-2"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"

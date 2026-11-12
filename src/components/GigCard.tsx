@@ -6,11 +6,10 @@ import {
   Plus, 
   Heart, 
   MapPin, 
-  Clock, 
   ArrowRight, 
   ShieldCheck, 
   Calendar,
-  AlertCircle
+  Clock
 } from 'lucide-react';
 import { Gig } from '../data/types.ts';
 import { useApp } from '../context/AppContext.tsx';
@@ -27,121 +26,114 @@ export const GigCard: React.FC<GigCardProps> = ({ gig, layout = 'grid' }) => {
   const inCart = isInCart(gig.id);
   const saved = isSaved(gig.id);
 
-  // Urgency tag styling
-  const urgencyStyle = {
-    Urgent: 'text-[#FF7A1A] border-[#FF7A1A]/30 bg-[#FF7A1A]/10',
-    Today: 'text-[#2DD4BF] border-[#2DD4BF]/30 bg-[#2DD4BF]/10',
-    'This Week': 'text-slate-400 border-white/10 bg-white/5'
+  const urgencyBadge = {
+    Urgent: 'bg-red-50 text-red-700 border-red-200',
+    Today: 'bg-orange-50 text-orange-700 border-orange-200',
+    'This Week': 'bg-slate-50 text-slate-600 border-slate-200'
   }[gig.urgencyTag];
 
   return (
-    <motion.div
-      layout
-      whileHover={{ y: -4, transition: { duration: 0.2 } }}
-      whileTap={{ scale: 0.985 }}
-      className={`group relative rounded-2xl bg-[#16213A] border border-white/[0.08] hover:border-[#FF7A1A]/40 transition-all duration-300 shadow-md hover:shadow-xl hover:shadow-[#FF7A1A]/5 flex flex-col justify-between overflow-hidden ${
+    <div
+      className={`group relative rounded-xl bg-white border border-slate-200 hover:border-slate-300 hover:shadow-md transition-all duration-200 flex flex-col justify-between overflow-hidden ${
         layout === 'list' ? 'md:flex-row md:items-stretch' : ''
       }`}
     >
-      {/* Top / Main Body */}
+      {/* Main Body */}
       <div className="p-5 flex-1 flex flex-col justify-between">
         <div>
-          {/* Header row: Urgency tag, Equipment, and Save Button */}
+          {/* Top meta row */}
           <div className="flex items-center justify-between gap-2 mb-3">
-            <div className="flex items-center gap-2 flex-wrap">
-              <span
-                className={`text-[11px] font-bold px-2.5 py-0.5 rounded-md border tracking-wider uppercase inline-flex items-center gap-1 ${urgencyStyle}`}
-              >
-                {gig.urgencyTag === 'Urgent' && (
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#FF7A1A] animate-pulse" />
-                )}
+            <div className="flex items-center gap-1.5 flex-wrap">
+              <span className={`text-[11px] font-bold px-2 py-0.5 rounded border uppercase tracking-wide ${urgencyBadge}`}>
                 {gig.urgencyTag}
               </span>
-
-              <span className="text-[11px] font-medium text-slate-300 bg-white/5 px-2 py-0.5 rounded-md border border-white/5">
+              <span className="text-[11px] font-semibold text-slate-700 bg-slate-100 px-2 py-0.5 rounded">
                 {gig.equipment}
               </span>
-
-              <span className="text-[11px] font-medium text-slate-400">
+              <span className="text-[11px] font-medium text-slate-500">
                 {gig.gigType}
               </span>
             </div>
 
             <button
               onClick={() => toggleSaveGig(gig.id)}
-              className={`p-1.5 rounded-lg transition-colors focus:outline-none ${
+              className={`p-1.5 rounded-lg transition-colors ${
                 saved
-                  ? 'text-[#FF7A1A] bg-[#FF7A1A]/10'
-                  : 'text-slate-400 hover:text-white hover:bg-white/5'
+                  ? 'text-[#EA580C] bg-orange-50'
+                  : 'text-slate-400 hover:text-slate-700 hover:bg-slate-100'
               }`}
               aria-label={saved ? 'Remove from saved' : 'Save gig'}
             >
-              <Heart className={`w-4 h-4 ${saved ? 'fill-[#FF7A1A]' : ''}`} />
+              <Heart className={`w-4 h-4 ${saved ? 'fill-[#EA580C]' : ''}`} />
             </button>
           </div>
 
-          {/* Title linking to details */}
-          <Link to={`/gigs/${gig.id}`} className="group-hover:text-[#FFB547] transition-colors">
-            <h3 className="font-display font-bold text-base sm:text-lg text-white leading-snug line-clamp-2 mb-3">
-              {gig.title}
-            </h3>
+          {/* Route Display - Extremely Clear & Legible */}
+          <Link to={`/gigs/${gig.id}`} className="block group-hover:text-[#EA580C] transition-colors mb-3">
+            <div className="bg-slate-50 rounded-lg p-3.5 border border-slate-100">
+              <div className="flex items-center justify-between gap-3">
+                {/* Origin */}
+                <div className="flex-1">
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shrink-0" />
+                    <span className="font-display font-bold text-base text-slate-900 group-hover:text-[#EA580C] transition-colors">
+                      {gig.pickup.city}, {gig.pickup.state}
+                    </span>
+                  </div>
+                  {gig.pickup.facilityName && (
+                    <p className="text-[11px] text-slate-500 pl-4 truncate max-w-[180px]">
+                      {gig.pickup.facilityName}
+                    </p>
+                  )}
+                </div>
+
+                {/* Arrow & Mileage */}
+                <div className="flex flex-col items-center justify-center px-2 shrink-0">
+                  <span className="text-[11px] font-semibold text-slate-600 font-mono">
+                    {gig.miles} mi
+                  </span>
+                  <div className="w-10 h-0.5 bg-slate-300 my-1 relative">
+                    <ArrowRight className="w-3 h-3 text-slate-500 absolute -top-1.25 right-0" />
+                  </div>
+                  <span className="text-[10px] font-mono text-emerald-700 font-medium">
+                    ${gig.ratePerMile.toFixed(2)}/mi
+                  </span>
+                </div>
+
+                {/* Destination */}
+                <div className="flex-1 text-right">
+                  <div className="flex items-center justify-end gap-1.5">
+                    <span className="font-display font-bold text-base text-slate-900 group-hover:text-[#EA580C] transition-colors">
+                      {gig.dropoff.city}, {gig.dropoff.state}
+                    </span>
+                    <MapPin className="w-3.5 h-3.5 text-[#EA580C] shrink-0" />
+                  </div>
+                  {gig.dropoff.facilityName && (
+                    <p className="text-[11px] text-slate-500 truncate max-w-[180px] ml-auto">
+                      {gig.dropoff.facilityName}
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              {/* Date & Time Window */}
+              <div className="mt-2.5 pt-2 border-t border-slate-200/60 flex items-center justify-between text-xs text-slate-600">
+                <span className="flex items-center gap-1">
+                  <Calendar className="w-3.5 h-3.5 text-slate-400" />
+                  <span className="font-medium">
+                    {new Date(gig.date + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                  </span>
+                </span>
+                <span className="flex items-center gap-1 text-[11px] text-slate-500">
+                  <Clock className="w-3 h-3 text-slate-400" />
+                  <span>{gig.pickupTimeWindow}</span>
+                </span>
+              </div>
+            </div>
           </Link>
 
-          {/* Route Display */}
-          <div className="bg-[#111A2E] rounded-xl p-3 border border-white/5 mb-4">
-            <div className="flex items-start justify-between gap-2">
-              <div className="flex-1">
-                <div className="flex items-center gap-2">
-                  <MapPin className="w-3.5 h-3.5 text-[#2DD4BF] shrink-0" />
-                  <span className="text-sm font-semibold text-white">
-                    {gig.pickup.city}, {gig.pickup.state}
-                  </span>
-                </div>
-                {gig.pickup.facilityName && (
-                  <p className="text-[11px] text-slate-400 ml-5.5 truncate max-w-[200px]">
-                    {gig.pickup.facilityName}
-                  </p>
-                )}
-              </div>
-
-              <div className="flex flex-col items-center justify-center px-2 shrink-0">
-                <span className="text-[10px] font-mono text-slate-400">{gig.miles} mi</span>
-                <div className="w-12 h-[2px] bg-white/20 relative my-1">
-                  <ArrowRight className="w-3 h-3 text-[#FF7A1A] absolute -top-1 -right-1" />
-                </div>
-                <span className="text-[10px] font-mono text-[#2DD4BF]">${gig.ratePerMile.toFixed(2)}/mi</span>
-              </div>
-
-              <div className="flex-1 text-right">
-                <div className="flex items-center justify-end gap-1.5">
-                  <span className="text-sm font-semibold text-white">
-                    {gig.dropoff.city}, {gig.dropoff.state}
-                  </span>
-                  <MapPin className="w-3.5 h-3.5 text-[#FF7A1A] shrink-0" />
-                </div>
-                {gig.dropoff.facilityName && (
-                  <p className="text-[11px] text-slate-400 truncate max-w-[200px] ml-auto">
-                    {gig.dropoff.facilityName}
-                  </p>
-                )}
-              </div>
-            </div>
-
-            {/* Time / date row */}
-            <div className="mt-2.5 pt-2 border-t border-white/5 flex items-center justify-between text-xs text-slate-400">
-              <div className="flex items-center gap-1.5">
-                <Calendar className="w-3.5 h-3.5 text-slate-400" />
-                <span>{new Date(gig.date + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <Clock className="w-3.5 h-3.5 text-slate-400" />
-                <span>{gig.pickupTimeWindow}</span>
-              </div>
-            </div>
-          </div>
-
           {/* Carrier Info */}
-          <div className="flex items-center justify-between gap-3 mb-4">
+          <div className="flex items-center justify-between gap-3 mb-3">
             <div className="flex items-center gap-2.5 min-w-0">
               <CarrierBadge
                 initials={gig.company.logoInitials}
@@ -150,70 +142,65 @@ export const GigCard: React.FC<GigCardProps> = ({ gig, layout = 'grid' }) => {
               />
               <div className="min-w-0">
                 <div className="flex items-center gap-1.5">
-                  <span className="text-xs font-semibold text-slate-200 truncate">
+                  <span className="text-xs font-bold text-slate-800 truncate">
                     {gig.company.name}
                   </span>
                   <span title="FMCSA Verified Carrier">
-                    <ShieldCheck className="w-3.5 h-3.5 text-[#2DD4BF] shrink-0" />
+                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                   </span>
                 </div>
-                <div className="flex items-center gap-2 text-[11px] text-slate-400">
+                <div className="flex items-center gap-1.5 text-[11px] text-slate-500">
                   <span>{gig.company.dotNumber}</span>
                   <span>·</span>
-                  <span className="text-amber-400 font-medium">★ {gig.company.rating}</span>
+                  <span className="text-amber-600 font-semibold">★ {gig.company.rating}</span>
                 </div>
               </div>
             </div>
 
-            {/* Direct disclaimer micro-badge */}
-            <span className="text-[10px] text-slate-400 hidden sm:inline-block bg-white/[0.04] px-2 py-0.5 rounded border border-white/5 whitespace-nowrap">
+            <span className="text-[10px] font-semibold text-emerald-800 bg-emerald-50 border border-emerald-100 px-2 py-0.5 rounded shrink-0 hidden sm:inline-block">
               Direct-to-Carrier
             </span>
           </div>
-        </div>
 
-        {/* Requirements snippet */}
-        <div className="flex items-center gap-1.5 flex-wrap text-[11px] text-slate-400 mb-4">
-          <span className="px-2 py-0.5 rounded bg-white/5 font-mono text-slate-300">
-            {gig.requirements.cdlClass}
-          </span>
-          <span className="px-2 py-0.5 rounded bg-white/5">
-            {gig.requirements.minExperienceYears}+ yrs exp
-          </span>
-          {gig.requirements.endorsements.slice(0, 2).map((end) => (
-            <span key={end} className="px-2 py-0.5 rounded bg-white/5 text-slate-300">
-              {end}
+          {/* Requirements Badges */}
+          <div className="flex items-center gap-1.5 flex-wrap text-[11px] text-slate-600">
+            <span className="px-2 py-0.5 rounded bg-slate-100 font-semibold text-slate-700">
+              {gig.requirements.cdlClass}
             </span>
-          ))}
-          {gig.requirements.endorsements.length > 2 && (
-            <span className="text-[10px] text-slate-400">
-              +{gig.requirements.endorsements.length - 2} more
+            <span className="px-2 py-0.5 rounded bg-slate-100">
+              {gig.requirements.minExperienceYears}+ yrs exp
             </span>
-          )}
+            {gig.requirements.endorsements.slice(0, 2).map((end) => (
+              <span key={end} className="px-2 py-0.5 rounded bg-orange-50 text-orange-800 border border-orange-100">
+                {end}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* Card Footer: Pay amount + Actions */}
-      <div className={`p-4 bg-[#111A2E]/90 border-t border-white/5 flex items-center justify-between gap-3 ${
-        layout === 'list' ? 'md:w-64 md:border-t-0 md:border-l md:flex-col md:justify-center' : ''
+      {/* Footer: Pay & CTA */}
+      <div className={`p-4 bg-slate-50/80 border-t border-slate-200 flex items-center justify-between gap-3 ${
+        layout === 'list' ? 'md:w-60 md:border-t-0 md:border-l md:flex-col md:justify-center' : ''
       }`}>
         <div>
-          <span className="text-[10px] text-slate-400 uppercase tracking-wider block">Flat Payout</span>
+          <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider block">
+            Flat Pay (100% Direct)
+          </span>
           <div className="flex items-baseline gap-1">
-            <span className="font-display font-bold text-2xl text-white tabular-nums">
+            <span className="font-display font-bold text-2xl text-slate-900 tabular-nums">
               ${gig.pay.toLocaleString()}
             </span>
-            <span className="text-xs text-slate-400 font-mono">net</span>
           </div>
         </div>
 
         <div className="flex items-center gap-2">
           <button
             onClick={() => addToCart(gig)}
-            className={`px-3 py-2 rounded-xl text-xs font-bold transition-all duration-200 flex items-center gap-1.5 whitespace-nowrap focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF7A1A] ${
+            className={`px-3 py-2 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap ${
               inCart
-                ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30'
-                : 'gradient-amber text-white shadow-md shadow-[#FF7A1A]/20 hover:brightness-110 active:scale-95'
+                ? 'bg-emerald-100 text-emerald-800 border border-emerald-200'
+                : 'bg-[#EA580C] hover:bg-[#C2410C] text-white shadow-xs active:scale-98'
             }`}
             aria-label={inCart ? 'In Gig Cart' : `Add ${gig.title} to Gig Cart`}
           >
@@ -232,13 +219,13 @@ export const GigCard: React.FC<GigCardProps> = ({ gig, layout = 'grid' }) => {
 
           <Link
             to={`/gigs/${gig.id}`}
-            className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/10 transition-colors focus:outline-none"
+            className="p-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-200/80 transition-colors"
             aria-label={`View details for ${gig.title}`}
           >
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };

@@ -1,48 +1,44 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Truck, ShieldCheck, MapPin, Mail, Phone } from 'lucide-react';
+import { Truck, ShieldCheck } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="bg-[#070B14] border-t border-white/10 pt-16 pb-12 relative overflow-hidden">
-      {/* Road Lane Dashed Line Motif at the top */}
-      <div className="absolute top-0 left-0 right-0 road-divider-subtle" />
-
+    <footer className="bg-[#0F172A] text-white pt-14 pb-10 border-t border-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Main Footer Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-white/10">
-          {/* Brand Column */}
-          <div className="lg:col-span-2 space-y-4">
-            <Link to="/" className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl gradient-amber flex items-center justify-center">
-                <Truck className="w-5 h-5 text-white" />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 pb-10 border-b border-slate-800 text-xs">
+          {/* Brand */}
+          <div className="lg:col-span-2 space-y-3">
+            <Link to="/" className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center">
+                <Truck className="w-4 h-4 text-[#F97316]" />
               </div>
-              <span className="font-display font-bold text-2xl text-white">
-                Haul<span className="gradient-text-amber">Gig</span>
+              <span className="font-display font-bold text-xl text-white">
+                Haul<span className="text-[#F97316]">Gig</span>
               </span>
             </Link>
 
-            <p className="text-xs text-slate-400 max-w-sm leading-relaxed">
+            <p className="text-slate-400 max-w-sm leading-relaxed">
               The direct trucking gig directory connecting qualified CDL drivers with FMCSA-verified carriers. Find local trailer moves, yard shifts, and regional point A-to-B linehauls with zero middleman deductions.
             </p>
 
-            <div className="p-3.5 rounded-xl bg-[#111A2E] border border-white/5 flex items-start gap-3">
-              <ShieldCheck className="w-5 h-5 text-[#2DD4BF] shrink-0 mt-0.5" />
-              <div className="text-xs">
+            <div className="p-3 rounded-lg bg-slate-800/80 border border-slate-700/60 flex items-start gap-2.5">
+              <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+              <div>
                 <span className="font-bold text-white block">Direct-to-Carrier Network</span>
                 <span className="text-slate-400">
-                  Negotiate, book, and settle directly with carriers. 0% broker fee. 100% of the agreed haul rate goes straight to the driver.
+                  Negotiate and settle directly with carriers. 0% broker fee. 100% of the agreed haul rate goes straight to the driver.
                 </span>
               </div>
             </div>
           </div>
 
-          {/* Column 2: For Drivers */}
-          <div className="space-y-3">
-            <h4 className="font-display font-bold text-xs uppercase tracking-wider text-slate-300">
-              For CDL Drivers
+          {/* For Drivers */}
+          <div className="space-y-2.5">
+            <h4 className="font-bold text-slate-200 uppercase tracking-wider text-[11px]">
+              For Drivers
             </h4>
-            <ul className="space-y-2 text-xs text-slate-400">
+            <ul className="space-y-2 text-slate-400">
               <li>
                 <Link to="/gigs" className="hover:text-white transition-colors">
                   Browse All Gigs
@@ -60,24 +56,23 @@ export const Footer: React.FC = () => {
               </li>
               <li>
                 <Link to="/gigs?type=Hotshot" className="hover:text-white transition-colors">
-                  Hotshot & Expedited
+                  Hotshot Runs
                 </Link>
               </li>
               <li>
-                <Link to="/gigs?urgency=Urgent" className="hover:text-white transition-colors flex items-center gap-1.5 text-[#FFB547]">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#FF7A1A]" />
-                  <span>Urgent Today Runs</span>
+                <Link to="/gigs?urgency=Urgent" className="hover:text-white transition-colors text-orange-400">
+                  Today / Urgent Runs
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Column 3: For Carriers */}
-          <div className="space-y-3">
-            <h4 className="font-display font-bold text-xs uppercase tracking-wider text-slate-300">
-              For Carriers & Fleets
+          {/* For Carriers */}
+          <div className="space-y-2.5">
+            <h4 className="font-bold text-slate-200 uppercase tracking-wider text-[11px]">
+              For Carriers
             </h4>
-            <ul className="space-y-2 text-xs text-slate-400">
+            <ul className="space-y-2 text-slate-400">
               <li>
                 <Link to="/post" className="hover:text-white transition-colors">
                   Post a Gig Listing
@@ -98,18 +93,15 @@ export const Footer: React.FC = () => {
                   How Direct Hiring Works
                 </a>
               </li>
-              <li>
-                <span className="text-slate-500">FMCSA SafeStat Sync</span>
-              </li>
             </ul>
           </div>
 
-          {/* Column 4: Top Freight Corridors */}
-          <div className="space-y-3">
-            <h4 className="font-display font-bold text-xs uppercase tracking-wider text-slate-300">
+          {/* Top Lanes */}
+          <div className="space-y-2.5">
+            <h4 className="font-bold text-slate-200 uppercase tracking-wider text-[11px]">
               Top Freight Lanes
             </h4>
-            <ul className="space-y-2 text-xs text-slate-400">
+            <ul className="space-y-2 text-slate-400">
               <li>
                 <Link to="/gigs?pickup=Dallas" className="hover:text-white transition-colors">
                   Dallas TX → Fort Worth TX
@@ -139,23 +131,23 @@ export const Footer: React.FC = () => {
           </div>
         </div>
 
-        {/* Legal Disclaimer Box */}
-        <div className="mt-8 p-4 rounded-xl bg-white/[0.02] border border-white/5 text-[11px] text-slate-400 leading-relaxed">
+        {/* Legal Disclaimer */}
+        <div className="mt-6 p-4 rounded-lg bg-slate-800/40 border border-slate-800 text-[11px] text-slate-400 leading-relaxed">
           <p className="font-semibold text-slate-300 mb-1">
-            Information Directory Notice & Regulatory Disclaimer:
+            Information Directory Notice & Direct Settlement Disclaimer:
           </p>
           <p>
-            HaulGig operates exclusively as an electronic information matching directory and classified advertising service for commercial motor vehicle operations under 49 U.S.C. and related federal motor carrier statutes. HaulGig is neither a property broker, freight forwarder, motor carrier, nor an employer of truck drivers. HaulGig does not collect freight revenue, negotiate freight contracts, dispatch drivers, issue carrier rate confirmations, or process driver wage compensation. All contracts, settlements, insurance verification, and logistics arrangements occur strictly and directly between the hiring verified carrier and the qualified CDL driver.
+            HaulGig operates strictly as an electronic information directory and classified advertising service for commercial motor vehicle operations. HaulGig is neither a freight broker, freight forwarder, motor carrier, nor an employer of truck drivers. All negotiations, rate confirmation agreements, settlements, insurance verification, and logistics arrangements occur strictly and directly between the hiring verified carrier and the qualified CDL driver.
           </p>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+        {/* Bottom */}
+        <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
           <p>© {new Date().getFullYear()} HaulGig Technologies Inc. All rights reserved.</p>
-          <div className="flex items-center gap-6">
-            <span className="text-slate-400">Direct-to-Carrier · Zero Middleman Fees</span>
+          <div className="flex items-center gap-4">
+            <span>Direct-to-Carrier · Zero Middleman Fees</span>
             <span>·</span>
-            <span className="text-slate-400">FMCSA Verified Network</span>
+            <span>FMCSA SafeStat Verified</span>
           </div>
         </div>
       </div>
