@@ -1,0 +1,6 @@
+{
+  "name": "HaulGig",
+  "description": "Direct-to-carrier trucking gig marketplace connecting qualified CDL drivers with verified carriers for trailer moves, point A-to-B runs, yard moves, and hotshot hauls with zero middleman fees.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

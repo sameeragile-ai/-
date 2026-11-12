@@ -1,0 +1,55 @@
+import React, { useState } from 'react';
+
+interface SafeImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
+  fallbackText?: string;
+}
+
+export const SafeImage: React.FC<SafeImageProps> = ({
+  src,
+  alt,
+  className = '',
+  fallbackText = 'HaulGig Freight',
+  ...rest
+}) => {
+  const [hasError, setHasError] = useState(false);
+
+  if (hasError || !src) {
+    return (
+      <div
+        className={`flex flex-col items-center justify-center bg-gradient-to-br from-[#111A2E] via-[#16213A] to-[#0B1220] border border-white/10 text-slate-400 p-4 text-center select-none ${className}`}
+        role="img"
+        aria-label={alt || fallbackText}
+      >
+        <svg
+          className="w-10 h-10 text-[#FF7A1A]/70 mb-2"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2" />
+          <path d="M15 18H9" />
+          <path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.62l-3.48-4.35A1 1 0 0 0 17.52 8H14" />
+          <circle cx="17" cy="18" r="2" />
+          <circle cx="7" cy="18" r="2" />
+        </svg>
+        <span className="text-xs font-medium text-slate-400 tracking-wide">
+          {fallbackText}
+        </span>
+      </div>
+    );
+  }
+
+  return (
+    <img
+      src={src}
+      alt={alt || 'HaulGig transport'}
+      className={className}
+      referrerPolicy="no-referrer"
+      onError={() => setHasError(true)}
+      {...rest}
+    />
+  );
+};
